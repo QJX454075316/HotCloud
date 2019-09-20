@@ -1,0 +1,57 @@
+spring:
+  application:
+    name: first-cloud-server
+  profiles: slave1
+server:
+  port: 8081
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://slave2:8082/eureka/,http://slave3:8083/eureka/
+
+  instance:
+    hostname: slave1
+    lease-renewal-interval-in-seconds: 30
+    lease-expiration-duration-in-seconds: 30
+    prefer-ip-address: true
+
+
+---
+spring:
+  application:
+    name: second-cloud-server
+  profiles: slave2
+server:
+  port: 8082
+eureka:
+  instance:
+    hostname: slave2
+    lease-renewal-interval-in-seconds: 30
+    lease-expiration-duration-in-seconds: 30
+    prefer-ip-address: true
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    serviceUrl:
+      defaultZone:  http://slave3:8083/eureka/,http://slave1:8081/eureka/
+
+---
+spring:
+  application:
+    name: third-cloud-server
+  profiles: slave3
+server:
+  port: 8083
+eureka:
+  instance:
+    hostname: slave3
+    lease-renewal-interval-in-seconds: 30
+    lease-expiration-duration-in-seconds: 30
+    prefer-ip-address: true
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    serviceUrl:
+      defaultZone:  http://slave1:8081/eureka/,http://slave2:8082/eureka/
