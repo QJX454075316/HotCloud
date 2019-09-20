@@ -1,4 +1,4 @@
-package com.qjc.hotEureka;
+package com.qjx.hotEureka;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
