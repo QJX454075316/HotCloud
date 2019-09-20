@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qjx.hot.dao.HotSearchMapper">
+    <resultMap id="BaseResultMap" type="com.qjx.hot.entrty.SearchEntrty">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="title" jdbcType="VARCHAR" property="title" />
+        <result column="type" jdbcType="TINYINT" property="type" />
+        <result column="url" jdbcType="VARCHAR" property="url" />
+        <collection property="ranks" ofType="com.qjx.hot.entrty.RankEntrty">
+            <id column="rid" jdbcType="BIGINT" property="id" />
+            <result column="time" jdbcType="VARCHAR" property="time" />
+            <result column="ranking" jdbcType="SMALLINT" property="ranking" />
+            <result column="count" jdbcType="INTEGER" property="count" />
+        </collection>
+    </resultMap>
+
+    <sql id="baseSelect">
+      SELECT h.id as id ,title,type,url,t.id as  rid,time,ranking,count FROM time_rank t LEFT JOIN hot_search h ON t.hot_id = h.id
+    </sql>
+
+    <select id="selectAllSearch" resultMap="BaseResultMap">
+        <include refid="baseSelect"/>
+    </select>
+
+    <select id="selectHotById" resultMap="BaseResultMap">
+        <include refid="baseSelect"/> where h.id = #{id,jdbcType=BIGINT}
+    </select>
+
+
+
+
+
+    <!--<select id="userLogin" parameterType="com.qjx.acount.entry.User" resultMap="BaseResultMap">-->
+        <!--SELECT <include refid="Base_Column_List"></include> FROM `user` WHERE-->
+        <!--username =  #{username,jdbcType=VARCHAR} and `password` = #{password,jdbcType=VARCHAR}-->
+    <!--</select>-->
+
+    <!--<select id="selectByUsername" resultType="java.lang.Integer">-->
+      <!--SELECT COUNT(id) FROM `user` WHERE username = #{username,jdbcType=VARCHAR}-->
+  <!--</select>-->
+
+    <!--<select id="selectAllUser" resultType="com.qjx.acount.entry.User">-->
+        <!--SELECT <include refid="Base_Column_List"></include> FROM user-->
+    <!--</select>-->
+</mapper>
