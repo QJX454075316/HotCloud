@@ -1,4 +1,4 @@
-package com.qjc.hotEureka;
+package com.qjx.hotEureka;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
