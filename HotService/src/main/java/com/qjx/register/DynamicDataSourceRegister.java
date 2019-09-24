@@ -136,6 +136,7 @@ public class DynamicDataSourceRegister implements ImportBeanDefinitionRegistrar,
         ConfigurationPropertySource source = new MapConfigurationPropertySource(properties);
         Binder binder = new Binder(new ConfigurationPropertySource[]{source.withAliases(ALIASES)});
         // 通过类型绑定参数并获得实例对象
+        logger.info("-----------------------------");
         return binder.bind(ConfigurationPropertyName.EMPTY, Bindable.of(clazz)).get();
     }
 

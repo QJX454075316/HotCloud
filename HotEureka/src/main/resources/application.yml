@@ -1,5 +1,27 @@
 spring:
   application:
+    name: test-cloud-server
+  profiles: test
+server:
+  port: 8080
+eureka:
+  client:
+    fetch-registry: false #服务发现，是否从Eureka中获取注册信息
+    register-with-eureka: false  #服务注册，是否将自己注册到Eureka服务中
+    service-url: #Eureka客户端与Eureka服务端的交互地址，高可用状态配置对方的地址，单机状态配置自己（如果不配置则默认本机8761端口）
+      defaultZone: http://slave1:8080/eureka/
+
+  instance:
+    hostname: slave1
+    lease-renewal-interval-in-seconds: 30
+    lease-expiration-duration-in-seconds: 30
+    prefer-ip-address: true
+
+
+
+---
+spring:
+  application:
     name: first-cloud-server
   profiles: slave1
 server:
