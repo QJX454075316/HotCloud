@@ -5,10 +5,12 @@ import com.qjx.hot.entrty.User;
 import com.qjx.hot.service.CommonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
+import java.util.List;
 
 
 @Controller
@@ -65,6 +67,23 @@ public class CommonController {
         }else{
             model.addObject("code",400);
             model.addObject("msg","注册失败!");
+        }
+        return model;
+    }
+
+
+    @GetMapping("getAllUser")
+    public ModelAndView getAllUser(){
+
+        ModelAndView model = new ModelAndView(new MappingJackson2JsonView());
+        List<User> users = commonService.getUserList();
+        if(!users.isEmpty()){
+            model.addObject("data",users);
+            model.addObject("code",200);
+            model.addObject("msg","登录成功!");
+        }else{
+            model.addObject("code",400);
+            model.addObject("msg","没有用户!");
         }
         return model;
     }

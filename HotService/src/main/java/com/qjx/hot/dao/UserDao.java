@@ -61,6 +61,7 @@ public interface UserDao {
      * @param user
      * @return 返回用户对象
      */
+    @DataSource("slave1")
     User userLogin(User user);
 
     /**

@@ -39,4 +39,5 @@ public interface CommonService {
      * @return 用户列表
      */
     List<User> getUserList();
+
 }
