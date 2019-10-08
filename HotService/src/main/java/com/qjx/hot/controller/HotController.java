@@ -19,8 +19,12 @@ import java.util.List;
 @RequestMapping(value = "hot" )
 public class HotController {
 
+    private final HotService service;
+
     @Autowired
-    private HotService service;
+    public HotController(HotService service) {
+        this.service = service;
+    }
 
 
     @RequestMapping(value = "/test",method = RequestMethod.GET)
@@ -29,10 +33,10 @@ public class HotController {
     }
 
     @GetMapping(value = "/getAllHot")
-    public ModelAndView getAllHotdata(){
+    public ModelAndView getAllHotData(){
         ModelAndView model = new ModelAndView(new MappingJackson2JsonView());
-        List<SearchEntrty> allhot = service.getAllhot();
-        model.addObject("data",allhot);
+        List<SearchEntrty> allHot = service.getAllHot();
+        model.addObject("data",allHot);
         model.addObject("status",200);
         model.addObject("msg","successful");
         return  model;

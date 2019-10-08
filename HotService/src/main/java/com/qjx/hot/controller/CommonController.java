@@ -13,17 +13,19 @@ import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 import java.util.List;
 
 
+/**
+ * @author qjx
+ */
 @Controller
 @RequestMapping("index")
-/**
- * 公共controller提供公共功能的接口
- * @author junxiangquan
- *
- */
 public class CommonController {
 
+    private final CommonService commonService;
+
     @Autowired
-    private CommonService commonService;
+    public CommonController(CommonService commonService) {
+        this.commonService = commonService;
+    }
 
     @RequestMapping("login")
     public ModelAndView userLogin(@RequestBody String param){
@@ -43,9 +45,9 @@ public class CommonController {
 
     @RequestMapping("usernameIsExist")
     public ModelAndView usernameIsExist(String username){
-        int resrult = commonService.usernameIsExist(username);
+        int result = commonService.usernameIsExist(username);
         ModelAndView model = new ModelAndView(new MappingJackson2JsonView());
-        if(resrult<=0){
+        if(result<=0){
             model.addObject("code",200);
             model.addObject("msg","用户名可以使用!");
         }else{

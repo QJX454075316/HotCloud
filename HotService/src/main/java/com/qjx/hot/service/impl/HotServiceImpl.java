@@ -11,11 +11,15 @@ import java.util.List;
 @Service
 public class HotServiceImpl implements HotService {
 
+    private final HotSearchMapper hotSearchMapper;
+
     @Autowired
-    private HotSearchMapper hotSearchMapper;
+    public HotServiceImpl(HotSearchMapper hotSearchMapper) {
+        this.hotSearchMapper = hotSearchMapper;
+    }
 
     @Override
-    public List<SearchEntrty> getAllhot() {
+    public List<SearchEntrty> getAllHot() {
         return hotSearchMapper.selectAllSearch();
     }
 
