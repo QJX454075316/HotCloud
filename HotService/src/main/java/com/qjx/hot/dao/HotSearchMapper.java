@@ -2,12 +2,14 @@ package com.qjx.hot.dao;
 
 import com.qjx.hot.entrty.SearchEntrty;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
  * @author qjx
  */
+@Repository
 @Mapper
 public interface HotSearchMapper {
 

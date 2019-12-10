@@ -3,10 +3,12 @@ package com.qjx.hot.dao;
 import com.qjx.annotation.DataSource;
 import com.qjx.hot.entrty.User;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @SuppressWarnings("ALL")
+@Repository
 @Mapper
 /**
  *

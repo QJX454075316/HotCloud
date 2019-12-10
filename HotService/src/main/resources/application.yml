@@ -1,6 +1,7 @@
 spring:
   application:
     name: hot-service
+  profiles: test
   datasource:
     master:
       url: jdbc:mysql://localhost:3306/hotnews??setUnicode=true&characterEncoding=utf8
@@ -38,11 +39,11 @@ spring:
     poolPreparedStatements: true
     maxOpenPreparedStatements: 20
 server:
-  port: 8085
+  port: 8081
 eureka:
   client:
     service-url:
-      defaultZone:  http://slave3:8083/eureka/,http://slave1:8081/eureka/,http://slave2:8082/eureka/
+      defaultZone:  http://slave3:8080/eureka/
     register-with-eureka: false
     fetch-registry: false
 
@@ -57,3 +58,67 @@ mybatis:
 
 logging:
   config: classpath:log4j2-spring.yml
+
+
+---
+  spring:
+    application:
+      name: hot-service
+    profiles: prod
+    datasource:
+      master:
+        url: jdbc:mysql://localhost:3306/hotnews??setUnicode=true&characterEncoding=utf8
+        username: root
+        password: 199511
+        # 使用druid数据源
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+      cluster:
+        - key: slave1
+          password: 199511
+          url: jdbc:mysql://127.0.0.1:3306/my?useUnicode=true&characterEncoding=UTF-8
+          idle-timeout: 20000
+          driver-class-name: com.mysql.jdbc.Driver
+          username: root
+          type: com.alibaba.druid.pool.DruidDataSource
+        - key: slave2
+          password: root
+          url: jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=UTF-8
+          idle-timeout: 20000
+          driver-class-name: com.mysql.jdbc.Driver
+          username: root
+          type: com.alibaba.druid.pool.DruidDataSource
+      filters: stat
+      maxActive: 20
+      initialSize: 1
+      maxWait: 60000
+      minIdle: 1
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: select 'x'
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: true
+      maxOpenPreparedStatements: 20
+  server:
+    port: 8085
+  eureka:
+    client:
+      service-url:
+        defaultZone:  http://slave3:8083/eureka/,http://slave1:8081/eureka/,http://slave2:8082/eureka/
+      register-with-eureka: false
+      fetch-registry: false
+
+
+  mybatis:
+    mapper-locations: classpath:mapper/*.xml
+    type-aliases-package: com.qjx.hot.entrty
+    #打印sql的配置
+    configuration:
+      log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+
+  logging:
+    config: classpath:log4j2-spring.yml
+
