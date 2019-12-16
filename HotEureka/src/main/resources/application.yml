@@ -10,7 +10,8 @@ eureka:
     register-with-eureka: false  #服务注册，是否将自己注册到Eureka服务中
     service-url: #Eureka客户端与Eureka服务端的交互地址，高可用状态配置对方的地址，单机状态配置自己（如果不配置则默认本机8761端口）
       defaultZone: http://slave1:8080/eureka/
-
+#  server: # Eureka自我保护机制
+#    enable-self-preservation: false
   instance:
     hostname: slave1
     lease-renewal-interval-in-seconds: 30
