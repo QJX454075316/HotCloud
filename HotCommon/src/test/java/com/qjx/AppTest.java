@@ -6,11 +6,5 @@ package com.qjx;
  */
 public class AppTest 
 {
-    /**
 
-    public void shouldAnswerWithTrue()
-    {
-        assertTrue( true );
-    }
-     */
 }
